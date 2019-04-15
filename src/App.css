@@ -1,0 +1,14 @@
+:root{
+    --mainOrange: #ff4c3b;
+    --mainWhite: #f3f3f3;
+    --mainDark: #232528;
+}
+
+body{
+    font-family: 'Lato',sans-serif !important;
+}
+
+.text-title {
+    letter-spacing: 0.3rem;
+    text-transform: uppercase;
+}

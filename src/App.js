@@ -23,7 +23,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/productManager" component={ProductManager} />
-          <Route exactpath="/productTypeManager" component={ProductTypeManager}/>
+          <Route exact path="/productTypeManager" component={ProductTypeManager}/>
           <Route exact path="/productGridView" component={ProductGrid} />
           <Route exact path="/productListView" component={ProductList} />
           <Route exact path="/viewDetail" component={ProductDetail} />
