@@ -1,26 +1,35 @@
+/**Author: Nguyen Le Bao Anh
+ * Course: COSC2430 - Web Programming
+ * Assignment #: 2
+ * Created on: 11/04/19
+ * Last Updated: 15/04/19
+ * Description: A ReactJS-based e-commerce web application*/
+
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Home from './components/main/Home';
+import ProductManager from './components/main/ProductManager';
+import ProductTypeManager from './components/main/ProductTypeManager';
+import Default from './components/main/Default';
+import ProductDetail from './components/main/ProductDetail';
+import ProductGrid from './components/main/ProductsGrid';
+import ProductList from './components/main/ProductsList';
+import { Switch, Route } from 'react-router-dom';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <React.Fragment>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/productManager" component={ProductManager} />
+          <Route exactpath="/productTypeManager" component={ProductTypeManager}/>
+          <Route exact path="/productGridView" component={ProductGrid} />
+          <Route exact path="/productListView" component={ProductList} />
+          <Route exact path="/viewDetail" component={ProductDetail} />
+          <Route component={Default} />
+        </Switch>
+      </React.Fragment>
     );
   }
 }
