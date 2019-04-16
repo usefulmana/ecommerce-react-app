@@ -4,31 +4,55 @@ import Header from '../secondary/Header';
 import NavBar from '../secondary/NavBar';
 import Footer from '../secondary/Footer';
 import UpButton from '../secondary/UpButton';
+import Image from 'react-image-resizer'
 export default class ProductDetail extends Component {
+  constructor() {
+    super()
+    this.state = {
+      product: []
+    };
+  }
+  fetchProduct() {
+    fetch(`http://rmit.chickenkiller.com:8080/products/${this.props.match.params.id}`)
+      .then(res => res.json())
+      .then(json => this.setState({ product: json }));
+  }
+  componentDidMount() {
+    this.fetchProduct();
+  }
+
   render() {
+    console.log(this.state.product)
     return (
       <ProductDetailWrapper>
-            <Header/>
-            <NavBar/>
-            <div class="card">
-                <div class="container-fluid">
-                    <div class="wrapper row">
-                        <div class="preview col-md-6">
-                            <div class="preview-pic tab-content">
-                                <div class="tab-pane active" id="pic-1"><img src={this.props.imageUrl} /></div>
-                            </div>
-                        </div>
-                        <div class="details col-md-6">
-                            <h3 class="product-title">{this.props.name}</h3>
-                            <p class="product-description">{this.props.description}</p>
-                            <h4 class="price">current price: <span>{this.props.price}</span></h4>
-                            <h4 class="price">brand: <span>{this.props.brand}</span></h4>
-                        </div>
-                    </div>
+        <Header />
+        <NavBar />
+        <div class="card">
+          <div class="container-fluid">
+            <div class="wrapper row">
+              <div class="preview col-md-6">
+                <div class="preview-pic tab-content">
+                  <div class="tab-pane active" id="pic-1"><Image
+                    src={this.state.product.imageUrl}
+                    height={400}
+                    width={800}
+                    alt='../img/240px-No_image_available.svg'
+                  /></div>
                 </div>
+              </div>
+              <div class="details col-md-6">
+                <h3 class="product-title pb-3">{this.state.product.name}</h3>
+                <p class="product-description">{this.state.product.description}</p>
+                <h4 class="price">producer: <span>{this.state.product.producer}</span></h4>
+                <h4 class="price"> price: <span>${this.state.product.price}</span></h4>
+                <h4 class="price">brand: <span>{this.state.product.brand}</span></h4>
+                <h4 class="price">type:  <span>{this.state.product.productType}</span></h4>
+              </div>
             </div>
-            <UpButton/>
-            <Footer/>
+          </div>
+        </div>
+        <UpButton />
+        <Footer />
       </ProductDetailWrapper>
     )
   }
@@ -93,6 +117,7 @@ img {
   line-height: 1.5em; }
 
 @media screen and (min-width: 997px) {
+  .value{color:red}
   .wrapper {
     display: -webkit-box;
     display: -webkit-flex;
@@ -121,7 +146,7 @@ img {
   font-weight: bold; }
 
 .checked, .price span {
-  color: #ff9f1a; }
+  color: #b63514; }
 
 .product-title, .rating, .product-description, .price, .vote, .sizes {
   margin-bottom: 15px; }

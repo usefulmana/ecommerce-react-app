@@ -36,7 +36,6 @@ export default class ProductsGrid extends Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <ProductsGridWrapper>
         <Header />
@@ -84,8 +83,9 @@ export default class ProductsGrid extends Component {
         <div>
           <div className="row">
             {this.state.product.map(p => (
-              <div className="col-lg-4 d-flex align-items-stretch">
+              <div className="col-2 mb-3">
                 <Product
+                  id={p._id}
                   name={p.name}
                   price={p.price}
                   brand={p.brand}

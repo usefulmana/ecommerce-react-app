@@ -26,7 +26,7 @@ class App extends Component {
           <Route exact path="/productTypeManager" component={ProductTypeManager}/>
           <Route exact path="/productGridView" component={ProductGrid} />
           <Route exact path="/productListView" component={ProductList} />
-          <Route exact path="/viewDetail" component={ProductDetail} />
+          <Route path={"/viewDetail/:id"} component={ProductDetail} />
           <Route component={Default} />
         </Switch>
       </React.Fragment>

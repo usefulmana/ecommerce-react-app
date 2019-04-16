@@ -6,24 +6,31 @@ import ProductDetail from "../main/ProductDetail";
 
 export default class Product extends Component {
   render() {
-    console.log(this.props);
     return (
       <div>
         <ProductWrapper className="">
           <div className="card">
-            <Image
+            <div className="card-img-top"><Image
               src={this.props.imageUrl}
               height={100}
               width={80}
-              className="card-img-top img-container"
-            />
+              alt='../img/240px-No_image_available.svg'
+            /></div>
             <div className="card-body">
               <h5 className="card-title text-primary">{this.props.name}</h5>
-              <button className="btn btn-primary" type="button">
-                {" "}
-                Details <i className="fa fas-info-circle" />
-              </button>
-              <span className='text-right'>${this.props.price}</span>
+              <p className='text-left'>${this.props.price}</p>
+            </div>
+
+            <div className="card-footer">
+              <Link to={{
+                pathname: `/viewDetail/${this.props.id}`,
+              }}></Link>
+              <Link to={`/viewDetail/${this.props.id}`}>
+                <button className="btn btn-primary" type="button">
+                  {" "}
+                  Details <i className="fa fas-info-circle" />
+                </button>
+              </Link>
             </div>
           </div>
         </ProductWrapper>
@@ -58,4 +65,8 @@ const ProductWrapper = styled.div`
   .img-container:hover .card-img-top {
     transform: scale(1.2);
   }
+  .card-body p{
+    color:red;
+  }
+  .card{min-height:20rem;}
 `;
