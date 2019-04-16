@@ -235,7 +235,7 @@ const ProductTypeManagerWrapper = styled.div`
     width:100%;
 }
 .padding{
-    margin-top:-2rem;
+    margin-top:1.5rem;
 }
 
 textarea{

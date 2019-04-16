@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import Image from 'react-image-resizer';
-import styled from 'styled-components';
-import ProductDetail from '../main/ProductDetail';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import Image from "react-image-resizer";
+import styled from "styled-components";
+import ProductDetail from "../main/ProductDetail";
 
 export default class Product extends Component {
   render() {
-    console.log(this.props)
+    console.log(this.props);
     return (
       <div>
-        <ProductWrapper className="col-9 mx-auto col-md-6 col-lg-3 my-3">
+        <ProductWrapper className="">
           <div className="card">
             <Image
               src={this.props.imageUrl}
@@ -19,16 +19,16 @@ export default class Product extends Component {
             />
             <div className="card-body">
               <h5 className="card-title text-primary">{this.props.name}</h5>
-               <button className="btn btn-primary" type="button">
-                  {' '}
-                  Details <i className="fa fas-info-circle" />
-                </button>
-              ${this.props.price}
+              <button className="btn btn-primary" type="button">
+                {" "}
+                Details <i className="fa fas-info-circle" />
+              </button>
+              <span className='text-right'>${this.props.price}</span>
             </div>
           </div>
         </ProductWrapper>
       </div>
-    )
+    );
   }
 }
 
@@ -51,11 +51,11 @@ const ProductWrapper = styled.div`
       background: rgba(247, 247, 247);
     }
   }
-  .img-container{
+  .img-container {
     position: relative;
     overflow: hidden;
   }
-  .img-container:hover .card-img-top{
-    transform: scale(1.2)
+  .img-container:hover .card-img-top {
+    transform: scale(1.2);
   }
 `;

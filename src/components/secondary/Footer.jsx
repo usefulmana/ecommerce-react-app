@@ -64,7 +64,7 @@ export default class Footer extends Component {
                         <i class="fab fa-twitter" />
                     </a>
                     <a href="https://www.instagram.com/hm/?hl=en">
-                        <i class="fas fa-instagram" />
+                        <i class="fas fa-hashtag" />
                     </a>
                     <a href="https://www.youtube.com/channel/UCoc8tpGCY1wrp8pV7mI0scA">
                         <i class="fab fa-youtube" />
@@ -103,14 +103,11 @@ const FooterWrapper = styled.div`
     font-size:2rem;
     padding: 1.5rem 1.5rem 0 1.5rem; 
 }
-.fa-instagram{
-    font-size:2.2rem;
-}
-.fa-twitter,.fa-youtube,.fa-instagram,.fa-linkedin-in{
+.fa-twitter,.fa-youtube,.fa-hashtag,.fa-linkedin-in{
     color:grey;
 }
 
-.fa-twitter:hover,.fa-youtube:hover,.fa-instagram:hover,.fa-linkedin-in:hover{
+.fa-twitter:hover,.fa-youtube:hover,.fa-hashtag:hover,.fa-linkedin-in:hover{
     transform: scale(1.2);
 }
 .text-muted h5{

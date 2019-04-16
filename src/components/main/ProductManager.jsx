@@ -339,8 +339,8 @@ const ProductManagerWrapper = styled.div`
 .form-group input{
     width:100%;
 }
-.padding{
-    margin-top:-2rem;
+.padding button{
+    margin-top:2rem;
 }
 
 textarea{
