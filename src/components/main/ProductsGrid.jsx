@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { ProductConsumer } from "./context";
 import Header from "../secondary/Header";
 import NavBar from "../secondary/NavBar";
 import Footer from "../secondary/Footer";
 import { Link } from "react-router-dom";
 import UpButton from "../secondary/UpButton";
 import Product from "../secondary/Product";
+import PriceSlider from '../secondary/PriceSlider'
+import Pagination from '../secondary/Pagination'
+
 const url = "http://rmit.chickenkiller.com:8080/products";
 export default class ProductsGrid extends Component {
   constructor() {
@@ -18,9 +20,9 @@ export default class ProductsGrid extends Component {
       brand: "",
       price: "",
       description: "",
-      pageOfItems: []
+      rangeVal:0
     };
-    this.onChangePage = this.onChangePage.bind(this);
+    this.updateRange = this.updateRange.bind(this);
   }
   onChangePage(pageOfItems) {
     // update state with new page of items
@@ -34,6 +36,11 @@ export default class ProductsGrid extends Component {
   componentDidMount() {
     this.fetchProduct();
   }
+  updateRange(val) {
+    this.setState({
+      rangeVal: val
+    })
+  } 
 
   render() {
     return (
@@ -49,17 +56,19 @@ export default class ProductsGrid extends Component {
               <a className="text-muted">HOME</a>
             </Link>
             /
-            <Link to="/viewProducts">
+            <Link to="/productGridView">
               <a className="text-muted">ALL PRODUCTS</a>
             </Link>
           </div>
         </div>
         <div>
-          <hr />
-          <div className="views">
+          <hr className='line-top'/>
+          <div className="row">
+            <div className='price-slider mx-auto'><PriceSlider/></div>
+            <div className="views">
             <Link to="/viewProducts">
               <button
-                className="btn text-muted"
+                className="btn text-muted grid-btn"
                 type="button"
                 data-toggle="tooltip"
                 title="Grid View"
@@ -69,7 +78,7 @@ export default class ProductsGrid extends Component {
             </Link>
             <Link to="/viewProductList">
               <button
-                className="btn text-muted"
+                className="btn text-muted list-btn"
                 type="button"
                 data-toggle="tooltip"
                 title="List View"
@@ -77,6 +86,7 @@ export default class ProductsGrid extends Component {
                 <i className="fas fa-list" />
               </button>
             </Link>
+          </div>
           </div>
           <hr />
         </div>
@@ -104,6 +114,24 @@ export default class ProductsGrid extends Component {
 }
 
 const ProductsGridWrapper = styled.div`
+.price-slider{
+  margin-top: 0.6rem;
+  padding-bottom: 1rem;
+}
+.grid-btn{
+  color:#ff4c3b !important;
+  background: transparent;
+}
+.list-btn{
+  background: transparent;
+}
+.line-top{
+  margin-top:0;
+}
+  .views{
+      margin-left: 105rem;
+      margin-top: -2.8rem;
+  }
   .col-lg-4 {
     padding-top: 2rem;
     padding-bottom: 1rem;
@@ -117,5 +145,10 @@ const ProductsGridWrapper = styled.div`
   .col-lg-8 a {
     margin-left: 0.2rem;
     margin-right: 0.2rem;
+  }
+
+  .row{
+    padding-left:4rem;
+    padding-right:4rem;
   }
 `;

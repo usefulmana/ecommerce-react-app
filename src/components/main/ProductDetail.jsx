@@ -22,7 +22,7 @@ export default class ProductDetail extends Component {
   }
 
   render() {
-    console.log(this.state.product)
+    console.log(this.props.match.params.id)
     return (
       <ProductDetailWrapper>
         <Header />
@@ -111,7 +111,6 @@ img {
             animation-duration: .3s; }
 
 .card {
-  margin-top: 50px;
   background: #eee;
   padding: 3em;
   line-height: 1.5em; }

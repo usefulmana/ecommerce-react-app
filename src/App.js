@@ -16,6 +16,7 @@ import ProductGrid from './components/main/ProductsGrid';
 import ProductList from './components/main/ProductsList';
 import { Switch, Route } from 'react-router-dom';
 
+// TODO Filter, Search, Pagination, List View
 class App extends Component {
   render() {
     return (

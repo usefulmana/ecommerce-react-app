@@ -4,7 +4,7 @@ export default class UpButton extends Component {
   render() {
     return (
       <div>
-        <ScrollUpButton />
+        <ScrollUpButton ShowAtPosition={50}/>
       </div>
     );
   }
