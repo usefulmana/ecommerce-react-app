@@ -6,14 +6,15 @@ import Footer from '../secondary/Footer';
 import UpButton from '../secondary/UpButton';
 import Search from './Search';
 
+
 export default class Home extends Component {
   render() {
     return (
       <div>
-        <Search/>
         <Header/>
         <Navbar/>
         <Banner/>
+        <Search />
         <UpButton />
         <Footer/>
       </div>

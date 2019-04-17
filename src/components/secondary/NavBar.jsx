@@ -12,18 +12,13 @@ export default class NavBar extends Component {
                     </Link>
                     <form className="w-50 mx-2">
                     <div className="input-group">
-                            <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Search"
-                            />
                             <div className="input-group-append">
-                                <a
+                                <Link to='/searchResults'> <a
                                     className="btn btn-secondary search-button"
                                     type="button"
                                 >
                                     <i className="fas fa-search" />
-                                </a>
+                                </a></Link>
                             </div>
                     </div>
                     </form>
@@ -39,9 +34,10 @@ const NavBarWrapper = styled.div`
   margin-left: 5rem;
 }
 .search-button {
+    margin-left: 50rem;
   border: 0;
-  color: white !important;
-  background-color: #ff4c3b;
+  color:#ff4c3b !important;
+  background-color: white;
 }
 .search-button:hover{
   border: 0.1rem solid#ff4c3b !important;

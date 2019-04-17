@@ -15,6 +15,7 @@ import ProductDetail from './components/main/ProductDetail';
 import ProductGrid from './components/main/ProductsGrid';
 import ProductList from './components/main/ProductsList';
 import { Switch, Route } from 'react-router-dom';
+import SearchResults from './components/main/SearchResults';
 
 // TODO Filter, Search, Pagination, List View
 class App extends Component {
@@ -27,6 +28,7 @@ class App extends Component {
           <Route exact path="/productTypeManager" component={ProductTypeManager}/>
           <Route exact path="/productGridView" component={ProductGrid} />
           <Route exact path="/productListView" component={ProductList} />
+          <Route exact path="/searchResults" component={SearchResults} />
           <Route path={"/viewDetail/:id"} component={ProductDetail} />
           <Route component={Default} />
         </Switch>
