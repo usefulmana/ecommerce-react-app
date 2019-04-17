@@ -15,7 +15,7 @@ export default class Product extends Component {
                 src={this.props.imageUrl}
                 height={100}
                 width={80}
-                alt='../img/240px-No_image_available.svg'
+                noImageSrc='https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg'
               /></div>
               <div className="card-body">
                 <h5 className="card-title text-primary">{this.props.name}</h5>

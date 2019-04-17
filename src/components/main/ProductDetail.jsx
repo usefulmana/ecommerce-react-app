@@ -36,7 +36,7 @@ export default class ProductDetail extends Component {
                     src={this.state.product.imageUrl}
                     height={400}
                     width={800}
-                    alt='../img/240px-No_image_available.svg'
+                    noImageSrc='https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg'
                   /></div>
                 </div>
               </div>

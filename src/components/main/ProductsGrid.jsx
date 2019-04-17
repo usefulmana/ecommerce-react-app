@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import UpButton from '../secondary/UpButton';
 import Product from '../secondary/Product';
 import PriceSlider from '../secondary/PriceSlider';
-import Pagination from '../secondary/Pagination';
+
 
 const url = 'http://rmit.chickenkiller.com:8080/products';
 export default class ProductsGrid extends Component {
@@ -15,11 +15,6 @@ export default class ProductsGrid extends Component {
     super();
     this.state = {
       product: [],
-      id: '',
-      name: '',
-      brand: '',
-      price: '',
-      description: '',
       rangeVal: 0
     };
     this.updateRange = this.updateRange.bind(this);

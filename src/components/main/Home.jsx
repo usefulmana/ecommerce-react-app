@@ -5,7 +5,7 @@ import Banner from '../secondary/Banner';
 import Footer from '../secondary/Footer';
 import UpButton from '../secondary/UpButton';
 import Search from './Search';
-
+import PaginateTest from '../secondary/PaginateTest';
 
 export default class Home extends Component {
   render() {
@@ -14,8 +14,9 @@ export default class Home extends Component {
         <Header/>
         <Navbar/>
         <Banner/>
-        <Search />
         <UpButton />
+        <Search/>
+        <PaginateTest/>
         <Footer/>
       </div>
     )

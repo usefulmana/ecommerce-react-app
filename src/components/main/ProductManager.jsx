@@ -331,6 +331,9 @@ export default class ProductManager extends Component {
   }
 }
 const ProductManagerWrapper = styled.div`
+th{
+  text-align:center;
+}
 .form-group p{
     margin-bottom:0.4rem;
     margin-left: 0.2rem;

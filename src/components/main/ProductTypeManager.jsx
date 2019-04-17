@@ -263,4 +263,6 @@ textarea{
 }
 .col-lg-8 a{
     margin-left:0.2rem;
-    margin-right:0.2rem;`
+    margin-right:0.2rem;
+}
+th{text-align:center;}`
