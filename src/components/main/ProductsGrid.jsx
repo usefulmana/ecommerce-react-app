@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import UpButton from '../secondary/UpButton';
 import Product from '../secondary/Product';
 import PriceSlider from '../secondary/PriceSlider';
-
+import Paginate from '../secondary/Paginate'
 
 const url = 'http://rmit.chickenkiller.com:8080/products';
 export default class ProductsGrid extends Component {
@@ -15,9 +15,9 @@ export default class ProductsGrid extends Component {
     super();
     this.state = {
       product: [],
-      rangeVal: 0
+      pageOfItems: []
     };
-    this.updateRange = this.updateRange.bind(this);
+    this.onChangePage = this.onChangePage.bind(this);
   }
   onChangePage(pageOfItems) {
     // update state with new page of items
@@ -30,11 +30,6 @@ export default class ProductsGrid extends Component {
   }
   componentDidMount() {
     this.fetchProduct();
-  }
-  updateRange(val) {
-    this.setState({
-      rangeVal: val
-    });
   }
 
   render() {
@@ -88,20 +83,19 @@ export default class ProductsGrid extends Component {
           <hr />
         </div>
         <div>
-          <div className="row">
-            {this.state.product.map(p => (
-              <div className="col-2 mb-3">
-                <Product
-                  id={p._id}
-                  name={p.name}
-                  price={p.price}
-                  brand={p.brand}
-                  imageUrl={p.imageUrl}
-                  description={p.description}
-                />
-              </div>
-            ))}
+          <div className="row items">
+            {this.state.pageOfItems.map(item =>
+              <div key={item.id}><Product
+                id={item._id}
+                name={item.name}
+                price={item.price}
+                brand={item.brand}
+                imageUrl={item.imageUrl}
+                description={item.description}
+              /></div>
+            )}
           </div>
+          <div className="paginate"><Paginate items={this.state.product} onChangePage={this.onChangePage} /></div>
         </div>
         <UpButton />
         <Footer />
@@ -111,6 +105,13 @@ export default class ProductsGrid extends Component {
 }
 
 const ProductsGridWrapper = styled.div`
+.items div{
+  margin-left: 1.5rem;
+}
+.paginate{
+  margin-top: 7rem;
+  margin-left: 50rem;
+}
   .price-slider {
     margin-top: 0.6rem;
     padding-bottom: 1rem;

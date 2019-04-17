@@ -52,8 +52,8 @@ export default class Paginate extends Component {
     // default to first page
     currentPage = currentPage || 1;
 
-    // default page size is 10
-    pageSize = pageSize || 10;
+    // default page size is 6
+    pageSize = pageSize || 6;
 
     // calculate total pages
     var totalPages = Math.ceil(totalItems / pageSize);

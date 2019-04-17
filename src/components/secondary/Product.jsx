@@ -58,5 +58,5 @@ const ProductWrapper = styled.div`
   .card-body p{
     color:red;
   }
-  .card{min-height:19rem;}
+  .card{min-height:19rem; max-width:15rem;}
 `;
