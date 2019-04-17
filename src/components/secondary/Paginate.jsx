@@ -107,25 +107,27 @@ export default class Paginate extends Component {
     }
 
     return (
-      <ul className="pagination">
-        <li className={pager.currentPage === 1 ? 'disabled' : ''}>
-          <a onClick={() => this.setPage(1)}>First</a>
-        </li>
-        <li className={pager.currentPage === 1 ? 'disabled' : ''}>
-          <a onClick={() => this.setPage(pager.currentPage - 1)}>Previous</a>
-        </li>
-        {pager.pages.map((page, index) =>
-          <li key={index} className={pager.currentPage === page ? 'active' : ''}>
-            <a onClick={() => this.setPage(page)}>{page}</a>
+      <PaginateWrapper>
+        <ul className="pagination justify-content-center">
+          <li className={pager.currentPage === 1 ? 'disabled page-item' : 'page-item'}>
+            <a onClick={() => this.setPage(1)} className='page-link'>First</a>
           </li>
-        )}
-        <li className={pager.currentPage === pager.totalPages ? 'disabled' : ''}>
-          <a onClick={() => this.setPage(pager.currentPage + 1)}>Next</a>
-        </li>
-        <li className={pager.currentPage === pager.totalPages ? 'disabled' : ''}>
-          <a onClick={() => this.setPage(pager.totalPages)}>Last</a>
-        </li>
-      </ul>
+          <li className={pager.currentPage === 1 ? 'disabled page-item' : 'page-item'}>
+            <a onClick={() => this.setPage(pager.currentPage - 1)} className='page-link'>Previous</a>
+          </li>
+          {pager.pages.map((page, index) =>
+            <li key={index} className={pager.currentPage === page ? 'active page-item' : 'page-item'}>
+              <a onClick={() => this.setPage(page)} className='page-link'>{page}</a>
+            </li>
+          )}
+          <li className={pager.currentPage === pager.totalPages ? 'disabled page-item' : 'page-item'}>
+            <a onClick={() => this.setPage(pager.currentPage + 1)} className='page-link'>Next</a>
+          </li>
+          <li className={pager.currentPage === pager.totalPages ? 'disabled page-item' : 'page-item'}>
+            <a onClick={() => this.setPage(pager.totalPages)} className='page-link'>Last</a>
+          </li>
+        </ul>
+      </PaginateWrapper>
     );
   }
 }
@@ -134,4 +136,14 @@ export default class Paginate extends Component {
 Pagination.defaultProps = defaultProps;
 
 
-const PaginateWrapper = styled.div``
+const PaginateWrapper = styled.div`
+.pagination>li.active>a {
+  border-color: transparent;
+  background:  #ff4c3b;
+  color: #fff;
+}
+.pagination>li:hover>a {
+  background:  #fff;
+  color: #ff4c3b;
+}
+a { cursor: pointer; }`

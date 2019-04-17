@@ -110,7 +110,6 @@ const ProductsGridWrapper = styled.div`
 }
 .paginate{
   margin-top: 7rem;
-  margin-left: 50rem;
 }
   .price-slider {
     margin-top: 0.6rem;
