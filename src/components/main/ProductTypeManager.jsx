@@ -148,7 +148,7 @@ export default class ProductTypeManager extends Component {
                   <div className="modal-dialog modal-side model-bottom-right modal-sm">
                     <div className="modal-content">
                       <div className="modal-header">
-                        <h3 className="text-left model-title">Add/Edit Form</h3>
+                        <h3 className="text-left model-title">Add/Edit Form <p className='text'>*Click New to add new</p></h3>
                         <button
                           type="button"
                           class="close"
@@ -196,7 +196,7 @@ export default class ProductTypeManager extends Component {
                               }
                             >
                               <i className="fas fa-eraser" />
-                              Clear Form
+                              New
                             </button>
                           </div>
                         </form>
@@ -226,6 +226,17 @@ export default class ProductTypeManager extends Component {
 
 
 const ProductTypeManagerWrapper = styled.div`
+.btn-dark{
+  padding-left:2.5rem;
+  padding-right:2.5rem;
+}
+.text{
+  font-size: 10px !important;
+  margin-top: 0.5rem;
+}
+.model-title{
+  margin-bottom: -1rem;
+}
 .form-group p{
     margin-bottom:0.4rem;
     margin-left: 0.2rem;

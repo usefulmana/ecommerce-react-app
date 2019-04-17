@@ -52,7 +52,8 @@ export default class ProductManager extends Component {
           price: this.state.price,
           producer: this.state.producer,
           imageUrl: this.state.imageUrl,
-          description: this.state.description
+          description: this.state.description,
+          productType: this.state.productType
         })
       }).then(res => this.fetchProduct());
     } else {
@@ -69,7 +70,8 @@ export default class ProductManager extends Component {
           price: this.state.price,
           producer: this.state.producer,
           imageUrl: this.state.imageUrl,
-          description: this.state.description
+          description: this.state.description,
+          productType: this.state.productType
         })
       }).then(res => {
         console.log(res);
@@ -95,7 +97,7 @@ export default class ProductManager extends Component {
     });
   }
 
-  handleEdit(id, name, brand, price, producer, imageUrl, description) {
+  handleEdit(id, name, brand, price, producer, imageUrl, description, productType) {
     this.setState({
       id: id,
       name: name,
@@ -103,7 +105,8 @@ export default class ProductManager extends Component {
       price: price,
       producer: producer,
       imageUrl: imageUrl,
-      description: description
+      description: description,
+      productType: productType
     });
   }
 
@@ -168,7 +171,8 @@ export default class ProductManager extends Component {
                     p.price,
                     p.producer,
                     p.imageUrl,
-                    p.description
+                    p.description,
+                    p.productType
                   )}
                 >
                   {' '}
@@ -179,7 +183,7 @@ export default class ProductManager extends Component {
                   <div className="modal-dialog modal-side model-bottom-right modal-lg">
                     <div className="modal-content">
                       <div className="modal-header">
-                        <h3 className="text-left model-title">Add/Edit Form</h3>
+                        <h3 className="text-left model-title">Add/Edit Form <br /><p className='text'>*Click New to add new</p> </h3>
                         <button
                           type="button"
                           class="close"
@@ -266,6 +270,20 @@ export default class ProductManager extends Component {
                               </div>
                               <div className="form-group">
                                 <p className="font-weight-bold text-left">
+                                  Product Type
+                                </p>
+                                <div>
+                                  <input
+                                    type="productType"
+                                    name="productType"
+                                    value={this.state.productType}
+                                    onChange={this.handleChange.bind(this)}
+                                    required
+                                  />
+                                </div>
+                              </div>
+                              <div className="form-group">
+                                <p className="font-weight-bold text-left">
                                   Description
                                 </p>
                                 <textarea
@@ -303,7 +321,7 @@ export default class ProductManager extends Component {
                               }
                             >
                               <i className="fas fa-eraser" />
-                              Clear Form
+                              New
                             </button>
                           </div>
                         </form>
@@ -331,6 +349,17 @@ export default class ProductManager extends Component {
   }
 }
 const ProductManagerWrapper = styled.div`
+.btn-dark{
+  padding-left:2.5rem;
+  padding-right:2.5rem;
+}
+.model-title{
+  margin-bottom: -1rem;
+}
+.text{
+  font-size: 10px !important;
+  margin-top: 0.5rem;
+}
 th{
   text-align:center;
 }
