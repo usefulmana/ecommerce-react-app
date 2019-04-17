@@ -10,16 +10,15 @@ const defaultProps = {
 export default class Paginate extends Component {
   constructor(props) {
     super(props);
-    this.state = { pager: {} };
+    this.state = { pager: {}, query: '' };
   }
-
   componentWillMount() {
     // set page if items array isn't empty
-    if (this.props.items && this.props.items.length) {
-      this.setPage(this.props.initialPage);
+    if (this.props.items && this.props.items.length && this.props.query) {
+      this.setPage(this.props.initialPage)
     }
   }
-
+  
   componentDidUpdate(prevProps, prevState) {
     // reset page if items array has changed
     if (this.props.items !== prevProps.items) {
@@ -28,8 +27,25 @@ export default class Paginate extends Component {
   }
 
   setPage(page) {
-    var items = this.props.items;
+    var items = []
     var pager = this.state.pager;
+    var query = this.props.query;
+    console.log(query);
+    if (query === '')
+    {
+      console.log('no query')
+      items = this.props.items;
+    }
+    else {
+      console.log('query here')
+      for (let  i = 0; i < this.props.items.length; i++)
+      {
+        if(this.props.items[i].productType === query){
+          items[i] = this.props.items[i];
+        }
+      }
+      console.log(items)
+    }
 
     if (page < 1 || page > pager.totalPages) {
       return;
@@ -53,7 +69,7 @@ export default class Paginate extends Component {
     currentPage = currentPage || 1;
 
     // default page size is 10
-    pageSize = pageSize || 6;
+    pageSize = pageSize || 5;
 
     // calculate total pages
     var totalPages = Math.ceil(totalItems / pageSize);
@@ -100,7 +116,6 @@ export default class Paginate extends Component {
 
   render() {
     var pager = this.state.pager;
-
     if (!pager.pages || pager.pages.length <= 1) {
       // don't display pager if there is only 1 page
       return null;

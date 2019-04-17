@@ -180,7 +180,7 @@ const ProductsGridWrapper = styled.div`
   select:focus{
     border-color: #ff4c3b !important;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #ff4c3b !important;
-    outline: 0 none;import ProductHorizontalCard from '../secondary/ProductHorizontalCard';
+    outline: 0 none;
 
   }
-`;
+`
