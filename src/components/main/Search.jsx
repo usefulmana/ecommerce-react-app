@@ -61,7 +61,7 @@ export default class Search extends Component {
                                   src={l.imageUrl}
                                   height={100}
                                   width={100}
-                                  alt="../img/240px-No_image_available.svg"
+                                  noImageSrc='https://www.jainsusa.com/images/store/agriculture/not-available.jpg'
                                 />
                               </Link>
                             </div>
@@ -107,6 +107,9 @@ const SearchWrapper = styled.div`
   .card-horizontal {
     display: flex;
     flex: 1 1 auto;
+  }
+  .card:hover{
+    transform: scale(1.1);
   }
   .search {
     margin-top: 3rem;

@@ -260,8 +260,8 @@ export default class ProductManager extends Component {
                                 </p>
                                 <div>
                                   <input
-                                    type="url"
-                                    name="imageURL"
+                                    type="imageUrl"
+                                    name="imageUrl"
                                     value={this.state.imageUrl}
                                     onChange={this.handleChange.bind(this)}
                                     required
@@ -316,7 +316,8 @@ export default class ProductManager extends Component {
                                   price: '',
                                   producer: '',
                                   imageUrl: '',
-                                  description: ''
+                                  description: '',
+                                  productType: '',
                                 })
                               }
                             >

@@ -6,7 +6,6 @@ import Footer from '../secondary/Footer';
 import { Link } from 'react-router-dom';
 import UpButton from '../secondary/UpButton';
 import Product from '../secondary/Product';
-import PriceSlider from '../secondary/PriceSlider';
 import Paginate from '../secondary/Paginate'
 
 const url = 'http://rmit.chickenkiller.com:8080/products';
@@ -15,10 +14,13 @@ export default class ProductsGrid extends Component {
     super();
     this.state = {
       product: [],
-      pageOfItems: []
+      productType:[],
+      pageOfItems: [],
+      query: ''
     };
     this.onChangePage = this.onChangePage.bind(this);
   }
+ 
   onChangePage(pageOfItems) {
     // update state with new page of items
     this.setState({ pageOfItems: pageOfItems });
@@ -28,8 +30,14 @@ export default class ProductsGrid extends Component {
       .then(res => res.json())
       .then(json => this.setState({ product: json }));
   }
+  fetchProductType() {
+    fetch('http://rmit.chickenkiller.com:8080/productTypes')
+      .then(res => res.json())
+      .then(json => this.setState({ productType: json }));
+  }
   componentDidMount() {
     this.fetchProduct();
+    this.fetchProductType();
   }
 
   render() {
@@ -54,11 +62,16 @@ export default class ProductsGrid extends Component {
         <div>
           <hr className="line-top" />
           <div className="row">
-            <div className="price-slider mx-auto">
-              <PriceSlider />
+            <div class="form-group">
+              <select class="form-control custom-select" onChange={e => this.setState({query: e.target.value})}>
+                <option disabled selected value> -- Select a Type -- </option>
+                <i class="fas fa-chevron-down"></i>
+                {this.state.productType.map(item =>
+                  <option value={item.name}>{item.name}</option>)}
+              </select>
             </div>
             <div className="views">
-              <Link to="/viewProducts">
+              <Link to= "/productGridView" >
                 <button
                   className="btn text-muted grid-btn"
                   type="button"
@@ -68,7 +81,7 @@ export default class ProductsGrid extends Component {
                   <i className="fas fa-th" />
                 </button>
               </Link>
-              <Link to="/viewProductList">
+              <Link to="/productListView" >
                 <button
                   className="btn text-muted list-btn"
                   type="button"
@@ -103,8 +116,18 @@ export default class ProductsGrid extends Component {
     );
   }
 }
-
+function searchingFor(query) {
+  return function (x) {
+    return x.name.toLowerCase().includes(query) || !query;
+  };
+}
 const ProductsGridWrapper = styled.div`
+.form-group select{
+  width:100%
+}
+.form-group{
+  margin-left: 50rem;
+}
 .items div{
   margin-left: 1.5rem;
 }
@@ -147,5 +170,10 @@ const ProductsGridWrapper = styled.div`
   .row {
     padding-left: 4rem;
     padding-right: 4rem;
+  }
+  select:focus{
+    border-color: #ff4c3b !important;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #ff4c3b !important;
+    outline: 0 none;
   }
 `;
