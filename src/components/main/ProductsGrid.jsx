@@ -25,7 +25,7 @@ export default class ProductsGrid extends Component {
   onOptionChange(e){
     this.setState({
       query: e.target.value,
-    })
+    }, ()=>{this.forceUpdateHandler()})
     
   }
   onChangePage(pageOfItems) {
@@ -48,6 +48,7 @@ export default class ProductsGrid extends Component {
   }
   forceUpdateHandler(){
     this.forceUpdate();
+    console.log('here')
   }
   render() {
     return (
@@ -117,7 +118,7 @@ export default class ProductsGrid extends Component {
               /></div>
             )}
           </div>
-          <div className="paginate"><Paginate items={this.state.product} onChangePage={this.onChangePage} query='Smartphone'/></div>
+          <div className="paginate"><Paginate items={this.state.product} onChangePage={this.onChangePage} query={this.state.query}/></div>
         </div>
         <UpButton />
         <Footer />
