@@ -33,6 +33,9 @@ const ProductWrapper = styled.div`
   .card {
     border-color: transparent;
     transition: all 1s linear;
+  } 
+  .card :hover{
+   transform: scale(1.1)
   }
   .img-container {
     position: relative;
