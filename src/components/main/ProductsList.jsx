@@ -187,6 +187,9 @@ const ProductsGridWrapper = styled.div`
     margin-left: 105rem;
     margin-top: -2.8rem;
   }
+  .items {
+    min-height: 43rem;
+  }
   .col-lg-4 {
     padding-top: 2rem;
     padding-bottom: 1rem;
