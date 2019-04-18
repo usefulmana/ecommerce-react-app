@@ -31,9 +31,8 @@ export default class Paginate extends Component {
     var pager = this.state.pager;
     var query = this.props.query;
     console.log(query);
-    if (query === '')
+    if (query === 'All')
     {
-      console.log('no query')
       items = this.props.items;
     }
     else {
@@ -44,7 +43,6 @@ export default class Paginate extends Component {
           items[i] = this.props.items[i];
         }
       }
-      console.log(items)
     }
 
     if (page < 1 || page > pager.totalPages) {

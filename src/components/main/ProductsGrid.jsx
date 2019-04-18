@@ -14,6 +14,7 @@ export default class ProductsGrid extends Component {
     super();
     this.state = {
       product: [],
+      filteredProduct: [],
       productTypes:[],
       pageOfItems: [],
       query: ''
@@ -24,9 +25,19 @@ export default class ProductsGrid extends Component {
   }
   onOptionChange(e){
     this.setState({
-      query: e.target.value,
-    }, ()=>{this.forceUpdateHandler()})
-    
+      query: e.target.value
+    })
+    if(e.target.value === 'All')
+    {
+      console.log('here')
+      fetch(url)
+        .then(res => res.json())
+        .then(json => this.setState({ filteredProduct: json }));
+    }
+    else {
+      fetch(`http://rmit.chickenkiller.com:8080/products/byType/${e.target.value}`)
+      .then(res => res.json())
+      .then(json => this.setState({ filteredProduct: json }));}
   }
   onChangePage(pageOfItems) {
     // update state with new page of items
@@ -35,7 +46,7 @@ export default class ProductsGrid extends Component {
   fetchProduct() {
     fetch(url)
       .then(res => res.json())
-      .then(json => this.setState({ product: json }));
+      .then(json => this.setState({ product: json, filteredProduct:json}));
   }
   fetchProductType() {
     fetch('http://rmit.chickenkiller.com:8080/productTypes')
@@ -51,6 +62,7 @@ export default class ProductsGrid extends Component {
     console.log('here')
   }
   render() {
+    console.log(this.state.filteredProduct)
     return (
       <ProductsGridWrapper>
         <Header />
@@ -74,8 +86,7 @@ export default class ProductsGrid extends Component {
           <div className="row">
             <div class="form-group">
               <select class="form-control custom-select" onChange={this.onOptionChange}>
-                <option disabled selected value> -- Select a Type -- </option>
-                <option value=''> All </option>
+                <option selected='selected' value='All'> All </option>
                 {this.state.productTypes.map(item =>
                   <option value={item.name}>{item.name}</option>)}
               </select>
@@ -118,7 +129,7 @@ export default class ProductsGrid extends Component {
               /></div>
             )}
           </div>
-          <div className="paginate"><Paginate items={this.state.product} onChangePage={this.onChangePage} query={this.state.query}/></div>
+          <div className="paginate"><Paginate items={this.state.filteredProduct} onChangePage={this.onChangePage} query={this.state.query}/></div>
         </div>
         <UpButton />
         <Footer />
