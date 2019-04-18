@@ -5,6 +5,7 @@ import Banner from '../secondary/Banner';
 import Footer from '../secondary/Footer';
 import UpButton from '../secondary/UpButton';
 import Search from './Search';
+import FormValidationTest from './FormValidationTest';
 
 
 export default class Home extends Component {
@@ -17,6 +18,7 @@ export default class Home extends Component {
         <UpButton />
         <Search/>
         <Footer/>
+        <FormValidationTest/>
       </div>
     )
   }

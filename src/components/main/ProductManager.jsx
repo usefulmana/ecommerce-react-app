@@ -262,7 +262,7 @@ export default class ProductManager extends Component {
                                   </p>
                                   <div>
                                     <input
-                                      type="text"
+                                      type="number"
                                       name="price"
                                       value={this.state.price}
                                       onChange={this.handleChange.bind(this)}
@@ -310,7 +310,7 @@ export default class ProductManager extends Component {
                                       name="productType"
                                       value={this.state.productType}
                                       onChange={this.handleChange.bind(this)}
-                                      required
+                                     required
                                     />
                                   </div>
                                 </div>
@@ -319,6 +319,7 @@ export default class ProductManager extends Component {
                                     Description
                                   </p>
                                   <textarea
+                                    required
                                     row="5"
                                     type="text"
                                     name="description"
@@ -333,7 +334,6 @@ export default class ProductManager extends Component {
                                 type="submit"
                                 className="btn btn-primary"
                                 onClick={this.handleAdd.bind(this)}
-                                data-dismiss="modal"
                               >
                                 <i className="fas fa-save" />
                                 Save Changes

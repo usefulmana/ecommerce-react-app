@@ -9,8 +9,14 @@ import { Link } from "react-router-dom";
 import Paginate from "./../secondary/Paginate";
 const url = "http://rmit.chickenkiller.com:8080/productTypes";
 
-// TODO IMPLEMENT SEARCH
-// TODO PRODUCT TYPE LINK
+const initialState={
+  productType: [],
+  id: "",
+  name: "",
+  pageOfItems: [],
+  query: '',
+  nameError: ''
+}
 export default class ProductTypeManager extends Component {
   constructor() {
     super();
@@ -19,7 +25,8 @@ export default class ProductTypeManager extends Component {
       id: "",
       name: "",
       pageOfItems: [],
-      query: ''
+      query: '',
+      nameError:''
     };
     this.onChangePage = this.onChangePage.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
@@ -36,17 +43,40 @@ export default class ProductTypeManager extends Component {
   componentDidMount() {
     this.fetchProductType();
   }
+  validate = () => {
+    let nameError = ''
+    if (this.state.name ==='a')
+    {
+      console.log('here')
+      nameError = 'Name cannot be blank'
+    }
+    if(nameError){
+      this.setState({nameError});
+      return false;
+    }
+    return true;
+  }
   handleSearchChange(e) {
     this.setState({
       query: e.target.value,
     });
   }
-  handleChange(e) {
-    let obj = {};
-    obj[e.target.name] = e.target.value;
-    this.setState(obj);
+  handleChange = event => {
+    const isCheckbox = event.target.type === "checkbox";
+    this.setState({
+      [event.target.name]: isCheckbox
+        ? event.target.checked
+        : event.target.value
+    });
+  };
+  handleSubmit = (e) =>{
+    e.preventDefault();
+    const isValid = this.validate();
+    if (isValid){
+      console.log(this.state)
+      this.setState(initialState);
+    }
   }
-
   handleAdd() {
     if (this.state.id == "") {
       fetch(url, {
@@ -172,8 +202,8 @@ export default class ProductTypeManager extends Component {
                             &times;
                           </button>
                         </div>
-                        <div className="modal-body">
-                          <form action="form-control">
+                        <div className="modal-body" >
+                          <form action="form-control" onSubmit={this.handleSubmit}>
                             <div className="form-group">
                               <p className="font-weight-bold text-left">Name</p>
                               <div>
@@ -184,29 +214,27 @@ export default class ProductTypeManager extends Component {
                                   onChange={this.handleChange.bind(this)}
                                   required
                                 />
+                                <div style={{ fontSize: 12, color: "red" }}>
+                                  {this.state.nameError}
+                                </div>
                               </div>
+                              
                             </div>
                             <div className="text-center padding">
                               <button
                                 type="submit"
                                 className="btn btn-primary"
                                 onClick={this.handleAdd.bind(this)}
-                                data-dismiss="modal"
                               >
                                 <i className="fas fa-save" />
                                 Save Changes
                               </button>
                               <button
-                                type="button"
+                                type="submit"
                                 className="btn btn-dark"
                                 onClick={() =>
                                   this.setState({
-                                    name: "",
-                                    brand: "",
-                                    price: "",
-                                    producer: "",
-                                    imageUrl: "",
-                                    description: ""
+                                  initialState
                                   })
                                 }
                               >
