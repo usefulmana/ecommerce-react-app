@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import Paginate from "./../secondary/Paginate";
 const url = "http://rmit.chickenkiller.com:8080/productTypes";
 
-// TODO IMPLEMENT PAGINATION
+// TODO IMPLEMENT SEARCH
 // TODO PRODUCT TYPE LINK
 export default class ProductTypeManager extends Component {
   constructor() {

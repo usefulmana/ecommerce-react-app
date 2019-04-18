@@ -8,8 +8,7 @@ import UpButton from "../secondary/UpButton";
 import { Link } from "react-router-dom";
 import Paginate from "./../secondary/Paginate";
 const url = "http://rmit.chickenkiller.com:8080/products";
-
-// TODO IMPLEMENT PAGINATION
+// TODO IMPLEMENT SEARCH
 export default class ProductManager extends Component {
   constructor() {
     super();
