@@ -8,6 +8,7 @@ import UpButton from '../secondary/UpButton';
 import Product from '../secondary/Product';
 import Paginate from '../secondary/Paginate'
 
+
 const url = 'http://rmit.chickenkiller.com:8080/products';
 export default class ProductsGrid extends Component {
   constructor() {
@@ -62,13 +63,12 @@ export default class ProductsGrid extends Component {
         <div>
           <hr className="line-top" />
           <div className="row">
-            <div class="form-group">
-              <select class="form-control custom-select" onChange={e => this.setState({query: e.target.value})}>
-                <option disabled selected value> -- Select a Type -- </option>
-                <i class="fas fa-chevron-down"></i>
+            <div className="dropdown mx-auto">
+              <button type='button' class='btn dropdown-toggle' data-toggle='dropdown'>Product Type</button>
+              <div className="dropdown-menu">
                 {this.state.productType.map(item =>
-                  <option value={item.name}>{item.name}</option>)}
-              </select>
+                  <Link to={`/filterResults/${item.name}`}><a className='dropdown-item text-muted'>{item.name}</a></Link>)}
+              </div>
             </div>
             <div className="views">
               <Link to= "/productGridView" >
@@ -122,6 +122,14 @@ function searchingFor(query) {
   };
 }
 const ProductsGridWrapper = styled.div`
+.dropdown-toggle{
+  border-color:#ff4c3b ;
+  background-color: transparent
+}
+.dropdown-toggle:hover{
+  border-color:#ff4c3b ;
+  background-color: #ff4c3b
+}
 .form-group select{
   width:100%
 }
@@ -150,7 +158,7 @@ const ProductsGridWrapper = styled.div`
   }
   .views {
     margin-left: 105rem;
-    margin-top: -2.8rem;
+    margin-top: -2.2rem;
   }
   .col-lg-4 {
     padding-top: 2rem;
@@ -166,7 +174,7 @@ const ProductsGridWrapper = styled.div`
     margin-left: 0.2rem;
     margin-right: 0.2rem;
   }
-
+  .items{margin-top: 8rem}
   .row {
     padding-left: 4rem;
     padding-right: 4rem;

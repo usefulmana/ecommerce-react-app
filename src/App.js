@@ -16,7 +16,7 @@ import ProductGrid from './components/main/ProductsGrid';
 import ProductList from './components/main/ProductsList';
 import { Switch, Route } from 'react-router-dom';
 import SearchResults from './components/main/SearchResults';
-
+import FilterResults from './components/main/FilterResults'
 // TODO Filter, Search, Pagination, List View
 class App extends Component {
   render() {
@@ -30,6 +30,7 @@ class App extends Component {
           <Route exact path="/productListView" component={ProductList} />
           <Route exact path="/searchResults" component={SearchResults} />
           <Route path={"/viewDetail/:id"} component={ProductDetail} />
+          <Route path={"/filterResults/:productType"} component={FilterResults} />
           <Route component={Default} />
         </Switch>
       </React.Fragment>
