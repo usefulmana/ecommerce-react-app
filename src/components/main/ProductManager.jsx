@@ -334,6 +334,7 @@ export default class ProductManager extends Component {
                                 type="submit"
                                 className="btn btn-primary"
                                 onClick={this.handleAdd.bind(this)}
+                                data-dismiss="modal"
                               >
                                 <i className="fas fa-save" />
                                 Save Changes
