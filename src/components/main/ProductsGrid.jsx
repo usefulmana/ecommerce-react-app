@@ -26,7 +26,6 @@ export default class ProductsGrid extends Component {
       query: e.target.value
     });
     if (e.target.value === "All") {
-      console.log("here");
       fetch(url)
         .then(res => res.json())
         .then(json => {
@@ -60,7 +59,7 @@ export default class ProductsGrid extends Component {
     fetch("http://rmit.chickenkiller.com:8080/productTypes")
       .then(res => res.json())
       .then(json => {
-        let data = json.filter(d => d._id !== "");
+        let data = json.filter(d => d._id !== "" &&d.name);
         this.setState({ productTypes: data })});
   }
   componentDidMount() {

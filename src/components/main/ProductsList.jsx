@@ -60,7 +60,10 @@ export default class ProductsList extends Component {
   fetchProductType() {
     fetch("http://rmit.chickenkiller.com:8080/productTypes")
       .then(res => res.json())
-      .then(json => this.setState({ productType: json }));
+      .then(json => {
+        let data = json.filter(d => d._id !== "" && d.name);
+        this.setState({ productType: data })
+      });
   }
   componentDidMount() {
     this.fetchProduct();
