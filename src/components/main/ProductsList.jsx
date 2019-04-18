@@ -29,13 +29,19 @@ export default class ProductsList extends Component {
       console.log("here");
       fetch(url)
         .then(res => res.json())
-        .then(json => this.setState({ product: json }));
+        .then(json => {
+          let data = json.filter(d => d._id !== "");
+          this.setState({ product: data });
+        });
     } else {
       fetch(
         `http://rmit.chickenkiller.com:8080/products/byType/${e.target.value}`
       )
         .then(res => res.json())
-        .then(json => this.setState({ product: json }));
+        .then(json => {
+          let data = json.filter(d => d._id !== "");
+          this.setState({ product: data });
+        });
     }
   }
 
@@ -46,7 +52,10 @@ export default class ProductsList extends Component {
   fetchProduct() {
     fetch(url)
       .then(res => res.json())
-      .then(json => this.setState({ product: json }));
+      .then(json => {
+        let data = json.filter(d => d._id !== "");
+        this.setState({ product: data });
+      });
   }
   fetchProductType() {
     fetch("http://rmit.chickenkiller.com:8080/productTypes")

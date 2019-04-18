@@ -1,24 +1,23 @@
-import React, { Component } from 'react'
-import styled from 'styled-components'
-import Pagination from 'react-js-pagination'
-
+import React, { Component } from "react";
+import styled from "styled-components";
+import Pagination from "react-js-pagination";
 
 const defaultProps = {
   initialPage: 1
-}
+};
 
 export default class Paginate extends Component {
   constructor(props) {
     super(props);
-    this.state = { pager: {}, query: '' };
+    this.state = { pager: {}, query: "" };
   }
   componentWillMount() {
     // set page if items array isn't empty
     if (this.props.items && this.props.items.length && this.props.query) {
-      this.setPage(this.props.initialPage)
+      this.setPage(this.props.initialPage);
     }
   }
-  
+
   componentDidUpdate(prevProps, prevState) {
     // reset page if items array has changed
     if (this.props.items !== prevProps.items) {
@@ -27,23 +26,8 @@ export default class Paginate extends Component {
   }
 
   setPage(page) {
-    var items = []
+    var items = this.props.items;
     var pager = this.state.pager;
-    var query = this.props.query;
-    console.log(query);
-    if (query === 'All')
-    {
-      items = this.props.items;
-    }
-    else {
-      console.log('query here')
-      for (let  i = 0; i < this.props.items.length; i++)
-      {
-        if(this.props.items[i].productType === query){
-          items[i] = this.props.items[i];
-        }
-      }
-    }
 
     if (page < 1 || page > pager.totalPages) {
       return;
@@ -96,7 +80,9 @@ export default class Paginate extends Component {
     var endIndex = Math.min(startIndex + pageSize - 1, totalItems - 1);
 
     // create an array of pages to ng-repeat in the pager control
-    var pages = [...Array((endPage + 1) - startPage).keys()].map(i => startPage + i);
+    var pages = [...Array(endPage + 1 - startPage).keys()].map(
+      i => startPage + i
+    );
 
     // return object with all pager properties required by the view
     return {
@@ -122,22 +108,66 @@ export default class Paginate extends Component {
     return (
       <PaginateWrapper>
         <ul className="pagination justify-content-center">
-          <li className={pager.currentPage === 1 ? 'disabled page-item' : 'page-item'}>
-            <a onClick={() => this.setPage(1)} className='page-link'>First</a>
+          <li
+            className={
+              pager.currentPage === 1 ? "disabled page-item" : "page-item"
+            }
+          >
+            <a onClick={() => this.setPage(1)} className="page-link">
+              First
+            </a>
           </li>
-          <li className={pager.currentPage === 1 ? 'disabled page-item' : 'page-item'}>
-            <a onClick={() => this.setPage(pager.currentPage - 1)} className='page-link'>Previous</a>
+          <li
+            className={
+              pager.currentPage === 1 ? "disabled page-item" : "page-item"
+            }
+          >
+            <a
+              onClick={() => this.setPage(pager.currentPage - 1)}
+              className="page-link"
+            >
+              Previous
+            </a>
           </li>
-          {pager.pages.map((page, index) =>
-            <li key={index} className={pager.currentPage === page ? 'active page-item' : 'page-item'}>
-              <a onClick={() => this.setPage(page)} className='page-link'>{page}</a>
+          {pager.pages.map((page, index) => (
+            <li
+              key={index}
+              className={
+                pager.currentPage === page ? "active page-item" : "page-item"
+              }
+            >
+              <a onClick={() => this.setPage(page)} className="page-link">
+                {page}
+              </a>
             </li>
-          )}
-          <li className={pager.currentPage === pager.totalPages ? 'disabled page-item' : 'page-item'}>
-            <a onClick={() => this.setPage(pager.currentPage + 1)} className='page-link'>Next</a>
+          ))}
+          <li
+            className={
+              pager.currentPage === pager.totalPages
+                ? "disabled page-item"
+                : "page-item"
+            }
+          >
+            <a
+              onClick={() => this.setPage(pager.currentPage + 1)}
+              className="page-link"
+            >
+              Next
+            </a>
           </li>
-          <li className={pager.currentPage === pager.totalPages ? 'disabled page-item' : 'page-item'}>
-            <a onClick={() => this.setPage(pager.totalPages)} className='page-link'>Last</a>
+          <li
+            className={
+              pager.currentPage === pager.totalPages
+                ? "disabled page-item"
+                : "page-item"
+            }
+          >
+            <a
+              onClick={() => this.setPage(pager.totalPages)}
+              className="page-link"
+            >
+              Last
+            </a>
           </li>
         </ul>
       </PaginateWrapper>
@@ -145,18 +175,19 @@ export default class Paginate extends Component {
   }
 }
 
-
 Pagination.defaultProps = defaultProps;
 
-
 const PaginateWrapper = styled.div`
-.pagination>li.active>a {
-  border-color: transparent;
-  background:  #ff4c3b;
-  color: #fff;
-}
-.pagination>li:hover>a {
-  background:  #fff;
-  color: #ff4c3b;
-}
-a { cursor: pointer; }`
+  .pagination > li.active > a {
+    border-color: transparent;
+    background: #ff4c3b;
+    color: #fff;
+  }
+  .pagination > li:hover > a {
+    background: #fff;
+    color: #ff4c3b;
+  }
+  a {
+    cursor: pointer;
+  }
+`;

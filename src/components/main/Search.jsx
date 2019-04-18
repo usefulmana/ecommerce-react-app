@@ -1,23 +1,25 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import Image from 'react-image-resizer';
+import React, { Component } from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import Image from "react-image-resizer";
 
-const url = 'http://rmit.chickenkiller.com:8080/products';
+const url = "http://rmit.chickenkiller.com:8080/products";
 export default class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      query: '',
+      query: "",
       products: []
     };
     this.handleChange = this.handleChange.bind(this);
   }
-
   fetchProduct() {
     fetch(url)
       .then(res => res.json())
-      .then(json => this.setState({ products: json }));
+      .then(json => {
+        let data = json.filter(d => (d._id !=="" && d.name !==""));
+        this.setState({ products: data });
+      });
   }
   componentDidMount() {
     this.fetchProduct();
@@ -31,6 +33,7 @@ export default class Search extends Component {
   }
 
   render() {
+    console.log(this.state.products)
     return (
       <SearchWrapper>
         <div>
@@ -56,12 +59,12 @@ export default class Search extends Component {
                           <div className="card-horizontal">
                             <div className="image-square-wrapper">
                               <Link to={`/viewDetail/${l._id}`}>
-                                {' '}
+                                {" "}
                                 <Image
                                   src={l.imageUrl}
                                   height={100}
                                   width={100}
-                                  noImageSrc='https://www.jainsusa.com/images/store/agriculture/not-available.jpg'
+                                  noImageSrc="https://www.jainsusa.com/images/store/agriculture/not-available.jpg"
                                 />
                               </Link>
                             </div>
@@ -85,7 +88,7 @@ export default class Search extends Component {
   }
 }
 function searchingFor(query) {
-  return function (x) {
+  return function(x) {
     return x.name.toLowerCase().includes(query.toLowerCase()) || !query;
   };
 }
@@ -108,7 +111,7 @@ const SearchWrapper = styled.div`
     display: flex;
     flex: 1 1 auto;
   }
-  .card:hover{
+  .card:hover {
     transform: scale(1.1);
   }
   .search {

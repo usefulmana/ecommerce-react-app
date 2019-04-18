@@ -30,13 +30,19 @@ export default class ProductsGrid extends Component {
       console.log("here");
       fetch(url)
         .then(res => res.json())
-        .then(json => this.setState({ product: json }));
+        .then(json => {
+          let data = json.filter(d => d._id !== "");
+          this.setState({ product: data });
+        });
     } else {
       fetch(
         `http://rmit.chickenkiller.com:8080/products/byType/${e.target.value}`
       )
         .then(res => res.json())
-        .then(json => this.setState({ product: json }));
+        .then(json => {
+          let data = json.filter(d => d._id !== "");
+          this.setState({ product: data });
+        });
     }
   }
   onChangePage(pageOfItems) {
@@ -46,7 +52,10 @@ export default class ProductsGrid extends Component {
   fetchProduct() {
     fetch(url)
       .then(res => res.json())
-      .then(json => this.setState({ product: json, filteredProduct: json }));
+      .then(json => {
+        let data = json.filter(d => d._id !== "");
+        this.setState({ product: data });
+      });
   }
   fetchProductType() {
     fetch("http://rmit.chickenkiller.com:8080/productTypes")
@@ -62,7 +71,6 @@ export default class ProductsGrid extends Component {
     console.log("here");
   }
   render() {
-    console.log(this.state.filteredProduct);
     return (
       <ProductsGridWrapper>
         <Header />
@@ -93,10 +101,7 @@ export default class ProductsGrid extends Component {
                   {" "}
                   -- Select an Option --{" "}
                 </option>
-                <option value="All">
-                  {" "}
-                  All{" "}
-                </option>
+                <option value="All"> All </option>
                 {this.state.productTypes.map(item => (
                   <option value={item.name}>{item.name}</option>
                 ))}
@@ -156,11 +161,6 @@ export default class ProductsGrid extends Component {
     );
   }
 }
-function searchingFor(query) {
-  return function(x) {
-    return x.name.toLowerCase().includes(query) || !query;
-  };
-}
 const ProductsGridWrapper = styled.div`
   .form-group select {
     width: 100%;
@@ -207,7 +207,9 @@ const ProductsGridWrapper = styled.div`
     margin-left: 0.2rem;
     margin-right: 0.2rem;
   }
-.items{min-height: 43rem;}
+  .items {
+    min-height: 35rem;
+  }
   .row {
     padding-left: 4rem;
     padding-right: 4rem;
