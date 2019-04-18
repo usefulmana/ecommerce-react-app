@@ -20,7 +20,6 @@ export default class ProductsGrid extends Component {
     };
     this.onChangePage = this.onChangePage.bind(this);
     this.onOptionChange = this.onOptionChange.bind(this);
-    this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
   }
   onOptionChange(e) {
     this.setState({
@@ -53,22 +52,20 @@ export default class ProductsGrid extends Component {
     fetch(url)
       .then(res => res.json())
       .then(json => {
-        let data = json.filter(d => d._id !== "");
+        let data = json.filter(d => d._id !== "" && d.productType !=='' && d.price!=='');
         this.setState({ product: data });
       });
   }
   fetchProductType() {
     fetch("http://rmit.chickenkiller.com:8080/productTypes")
       .then(res => res.json())
-      .then(json => this.setState({ productTypes: json }));
+      .then(json => {
+        let data = json.filter(d => d._id !== "");
+        this.setState({ productTypes: data })});
   }
   componentDidMount() {
     this.fetchProduct();
     this.fetchProductType();
-  }
-  forceUpdateHandler() {
-    this.forceUpdate();
-    console.log("here");
   }
   render() {
     return (

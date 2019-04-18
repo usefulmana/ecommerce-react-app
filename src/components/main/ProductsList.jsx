@@ -30,7 +30,7 @@ export default class ProductsList extends Component {
       fetch(url)
         .then(res => res.json())
         .then(json => {
-          let data = json.filter(d => d._id !== "");
+          let data = json.filter(d => d._id !== "" && d.productType !== '' && d.price !== null);
           this.setState({ product: data });
         });
     } else {

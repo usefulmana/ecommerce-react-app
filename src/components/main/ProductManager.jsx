@@ -21,15 +21,17 @@ export default class ProductManager extends Component {
       producer: "",
       imageUrl: "",
       productType: "",
-      pageOfItems: []
+      pageOfItems: [],
+      query:''
     };
     this.onChangePage = this.onChangePage.bind(this);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
   }
   fetchProduct() {
     fetch(url)
       .then(res => res.json())
       .then(json => {
-        let data = json.filter(d => d._id !== "");
+        let data = json.filter(d => d._id !== "" && d.name !=='');
         this.setState({ product: data });
       });
   }
@@ -42,6 +44,11 @@ export default class ProductManager extends Component {
     this.fetchProduct();
   }
 
+  handleSearchChange(e){
+    this.setState({
+      query: e.target.value,
+    });
+  }
   handleChange(e) {
     let obj = {};
     obj[e.target.name] = e.target.value;
@@ -130,8 +137,6 @@ export default class ProductManager extends Component {
   }
 
   render() {
-    console.log(this.state.product);
-    console.log(this.state.pageOfItems);
     return (
       <ProductManagerWrapper>
         <Header />
@@ -151,7 +156,8 @@ export default class ProductManager extends Component {
           </div>
         </div>
         <div className="row">
-          <div>
+          <div className="col-3 search-bar mx-auto"><input className='form-control' type='text' placeholder='Search by name' onChange={this.handleSearchChange}/></div>
+          <div className='add-new'>
             <button
               className="btn btn-primary text-left"
               data-toggle="modal"
@@ -172,7 +178,7 @@ export default class ProductManager extends Component {
                 <th className="text-center">Actions</th>
               </tr>
             </thead>
-            {this.state.pageOfItems.map(p => (
+            {this.state.pageOfItems.filter(searchingFor(this.state.query)).map(p => (
               <tr>
                 <td>{p._id}</td>
                 <td>
@@ -382,7 +388,28 @@ export default class ProductManager extends Component {
     );
   }
 }
+
+function searchingFor(query) {
+  return function (x) {
+    return x.name.toLowerCase().includes(query.toLowerCase()) || !query;
+  };
+}
 const ProductManagerWrapper = styled.div`
+.add-new{
+  margin-top:-3.3rem;
+}
+.search-bar{
+  margin-top: 1.5rem;
+  width: 10%;
+}
+.search-bar input{
+   border-radius: 15px;
+}
+.search-bar input:focus {
+    border-color: #ff4c3b !important;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #ff4c3b !important;
+    outline: 0 none;
+  }
   .link {
     color: grey !important;
   }
@@ -396,7 +423,6 @@ const ProductManagerWrapper = styled.div`
   .text {
     font-size: 10px !important;
     margin-top: 0.5rem;
-m;
   }
   th {
     text-align: center;

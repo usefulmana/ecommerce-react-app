@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import Pagination from "react-js-pagination";
 
 const defaultProps = {
   initialPage: 1
@@ -51,7 +50,7 @@ export default class Paginate extends Component {
     currentPage = currentPage || 1;
 
     // default page size is 10
-    pageSize = pageSize || 5;
+    pageSize = pageSize || 7;
 
     // calculate total pages
     var totalPages = Math.ceil(totalItems / pageSize);
@@ -175,7 +174,7 @@ export default class Paginate extends Component {
   }
 }
 
-Pagination.defaultProps = defaultProps;
+
 
 const PaginateWrapper = styled.div`
   .pagination > li.active > a {

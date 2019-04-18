@@ -18,9 +18,11 @@ export default class ProductTypeManager extends Component {
       productType: [],
       id: "",
       name: "",
-      pageOfItems: []
+      pageOfItems: [],
+      query: ''
     };
     this.onChangePage = this.onChangePage.bind(this);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
   }
   fetchProductType() {
     fetch(url)
@@ -34,7 +36,11 @@ export default class ProductTypeManager extends Component {
   componentDidMount() {
     this.fetchProductType();
   }
-
+  handleSearchChange(e) {
+    this.setState({
+      query: e.target.value,
+    });
+  }
   handleChange(e) {
     let obj = {};
     obj[e.target.name] = e.target.value;
@@ -114,8 +120,8 @@ export default class ProductTypeManager extends Component {
           </div>
         </div>
         <div className="row">
-          <h3> Product List </h3>
-          <div>
+          <div className="col-3 search-bar mx-auto"><input className='form-control' type='text' placeholder='Search by name' onChange={this.handleSearchChange} /></div>
+          <div className='add-new'>
             <button
               className="btn btn-primary text-left"
               data-toggle="modal"
@@ -134,7 +140,7 @@ export default class ProductTypeManager extends Component {
                 <th className="text-center">Actions</th>
               </tr>
             </thead>
-            {this.state.pageOfItems.map(p => (
+            {this.state.pageOfItems.filter(searchingFor(this.state.query)).map(p => (
               <tr>
                 <td>{p._id}</td>
                 <td>{p.name}</td>
@@ -239,8 +245,31 @@ export default class ProductTypeManager extends Component {
     );
   }
 }
-
+function searchingFor(query) {
+  return function (x) {
+    return x.name.toLowerCase().includes(query.toLowerCase()) || !query;
+  };
+}
 const ProductTypeManagerWrapper = styled.div`
+
+.add-new{
+  margin-top:-4.5rem;
+  margin-left: 10.6rem;
+  margin-bottom: 2rem
+}
+.search-bar{
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+  width: 10%;
+}
+.search-bar input{
+   border-radius: 15px;
+}
+.search-bar input:focus {
+    border-color: #ff4c3b !important;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #ff4c3b !important;
+    outline: 0 none;
+  }
   .btn-dark {
     padding-left: 2.5rem;
     padding-right: 2.5rem;
