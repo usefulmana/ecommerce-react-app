@@ -17,7 +17,6 @@ Runs the app in the development mode.
     "bootstrap" 
     "react-image-resizer"
     "react-router-dom"
-    "react-scripts":
     "react-scroll-up-button"
     "styled-components"
     "sweetalert2"

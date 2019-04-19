@@ -22,11 +22,82 @@ export default class ProductManager extends Component {
       imageUrl: "",
       productType: "",
       pageOfItems: [],
-      query:''
+      query:'',
+      nameError:'',
+      brandError:'',
+      priceError:"",
+      imageUrlError:"",
+      producerError:'',
+      productTypeError:'',
+      descriptionError:'',
     };
     this.onChangePage = this.onChangePage.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
   }
+
+
+  handleSubmit = event => {
+    event.preventDefault();
+    const isValid = this.validate();
+    if (isValid) {
+      console.log('valid')
+      this.setState({
+        nameError: "", brandError: '', descriptionError: '', producerError: '', productTypeError: '', priceError: "", imageUrlError: '', product: [],
+        id: "",
+        name: "",
+        brand: "",
+        price: "",
+        producer: "",
+        imageUrl: "",
+        productType: "",
+        description:""});
+      this.handleAdd()
+      Swal.fire({
+        type: 'success',
+        title: 'Success!',
+        showConfirmButton: false,
+        timer: 2000
+      })
+    }
+  }
+  validate = () => {
+    console.log('here')
+    let nameError = "";
+    let brandError = '';
+    let producerError ='';
+    let productTypeError= '';
+    let descriptionError ='';
+    let priceError = "";
+    let imageUrlError = ''
+    // let passwordError = "";
+
+    if (!this.state.name || this.state.name.length <= 4) {
+      nameError = "Name cannot be blank, and it has to be longer than 4 characters";
+    }
+    if (!this.state.brand) {
+      brandError = "Brand cannot be blank";
+    }
+    if (!this.state.price || this.state.price <= 0) {
+      priceError = "Price cannot be blank, and its value has to be greater than 0";
+    }
+    if (!this.state.producer ) {
+      producerError = "Producer cannot be blank";
+    }
+    if (!this.state.imageUrl.match(/\.(jpeg|jpg|gif|png)$/)) {
+      imageUrlError = "Product type cannot be blank, and it has to be a link to an image";
+    }
+    if (!this.state.productType || this.state.productType.length <= 4) {
+      productTypeError = "Product type cannot be blank, and it has to be longer than 4 characters";
+    }
+    if (!this.state.description || this.state.description.length <= 15) {
+      descriptionError = "Description cannot be blank, and it has to be longer than 15 characters";
+    }
+    if (nameError || brandError || producerError || productTypeError || descriptionError ||priceError||imageUrlError) {
+      this.setState({ nameError,brandError,producerError,productTypeError,descriptionError,priceError,imageUrlError });
+      return false;
+    }
+    return true;
+  };
   fetchProduct() {
     fetch(url)
       .then(res => res.json())
@@ -158,13 +229,22 @@ export default class ProductManager extends Component {
         <div className="row">
           <div className="col-3 search-bar mx-auto"><input className='form-control' type='text' placeholder='Search by name' onChange={this.handleSearchChange}/></div>
           <div className='add-new'>
-            <button
-              className="btn btn-primary text-left"
-              data-toggle="modal"
-              data-target="#mymodal"
+            <a href="#add-form"><button
+              className="btn mybtn text-left"
+              onClick={() =>
+                this.setState({
+                  name: "",
+                  brand: "",
+                  price: "",
+                  producer: "",
+                  imageUrl: "",
+                  description: "",
+                  productType: ""
+                })
+              }
             >
               <i className="fas fa-plus" /> Add New Product
-            </button>
+            </button></a>     
           </div>
         </div>
         <div className='table-css'>
@@ -175,6 +255,7 @@ export default class ProductManager extends Component {
                 <th>Name</th>
                 <th>Brand</th>
                 <th>Price</th>
+                <th>Type</th>
                 <th className="text-center">Actions</th>
               </tr>
             </thead>
@@ -186,183 +267,29 @@ export default class ProductManager extends Component {
                 </td>
                 <td>{p.brand}</td>
                 <td>{p.price}</td>
+                <td>{p.productType}</td>
                 <td className="text-center">
-                  <button
-                    className="btn btn-secondary"
-                    type="button"
-                    data-toggle="modal"
-                    data-target="#mymodal"
-                    onClick={this.handleEdit.bind(
-                      this,
-                      p._id,
-                      p.name,
-                      p.brand,
-                      p.price,
-                      p.producer,
-                      p.imageUrl,
-                      p.description,
-                      p.productType
-                    )}
-                  >
-                    {" "}
-                    <i className="fas fa-edit" />
-                    Edit
+                <a href="#add-form">
+                    <button
+                      className="btn btn-secondary"
+                      type="button"
+                      onClick={this.handleEdit.bind(
+                        this,
+                        p._id,
+                        p.name,
+                        p.brand,
+                        p.price,
+                        p.producer,
+                        p.imageUrl,
+                        p.description,
+                        p.productType
+                      )}
+                    >
+                      {" "}
+                      <i className="fas fa-edit" />
+                      Edit
                   </button>
-                  <div className="modal fade right" tabindex="-1" id="mymodal">
-                    <div className="modal-dialog modal-side model-bottom-right modal-lg">
-                      <div className="modal-content">
-                        <div className="modal-header">
-                          <h3 className="text-left model-title">
-                            Add/Edit Form <br />
-                            <p className="text">*Click New to add new</p>{" "}
-                          </h3>
-                          <button
-                            type="button"
-                            class="close"
-                            data-dismiss="modal"
-                          >
-                            &times;
-                          </button>
-                        </div>
-                        <div className="modal-body">
-                          <form action="form-control">
-                            <div className="row">
-                              <div className="col-lg-6">
-                                <div className="form-group">
-                                  <p className="font-weight-bold text-left">
-                                    Name
-                                  </p>
-                                  <div>
-                                    <input
-                                      type="text"
-                                      name="name"
-                                      value={this.state.name}
-                                      onChange={this.handleChange.bind(this)}
-                                      required
-                                    />
-                                  </div>
-                                </div>
-                                <div className="form-group">
-                                  <p className="font-weight-bold text-left">
-                                    Brand
-                                  </p>
-                                  <div>
-                                    <input
-                                      type="text"
-                                      name="brand"
-                                      value={this.state.brand}
-                                      onChange={this.handleChange.bind(this)}
-                                      required
-                                    />
-                                  </div>
-                                </div>
-                                <div className="form-group">
-                                  <p className="font-weight-bold text-left">
-                                    Price
-                                  </p>
-                                  <div>
-                                    <input
-                                      type="number"
-                                      name="price"
-                                      value={this.state.price}
-                                      onChange={this.handleChange.bind(this)}
-                                      required
-                                    />
-                                  </div>
-                                </div>
-                                <div className="form-group">
-                                  <p className="font-weight-bold text-left">
-                                    Producer
-                                  </p>
-                                  <div>
-                                    <input
-                                      type="text"
-                                      name="producer"
-                                      value={this.state.producer}
-                                      onChange={this.handleChange.bind(this)}
-                                      required
-                                    />
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="col-lg-6">
-                                <div className="form-group">
-                                  <p className="font-weight-bold text-left">
-                                    imageUrl
-                                  </p>
-                                  <div>
-                                    <input
-                                      type="imageUrl"
-                                      name="imageUrl"
-                                      value={this.state.imageUrl}
-                                      onChange={this.handleChange.bind(this)}
-                                      required
-                                    />
-                                  </div>
-                                </div>
-                                <div className="form-group">
-                                  <p className="font-weight-bold text-left">
-                                    Product Type
-                                  </p>
-                                  <div>
-                                    <input
-                                      type="productType"
-                                      name="productType"
-                                      value={this.state.productType}
-                                      onChange={this.handleChange.bind(this)}
-                                     required
-                                    />
-                                  </div>
-                                </div>
-                                <div className="form-group">
-                                  <p className="font-weight-bold text-left">
-                                    Description
-                                  </p>
-                                  <textarea
-                                    required
-                                    row="5"
-                                    type="text"
-                                    name="description"
-                                    value={this.state.description}
-                                    onChange={this.handleChange.bind(this)}
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                            <div className="text-center padding">
-                              <button
-                                type="submit"
-                                className="btn btn-primary"
-                                onClick={this.handleAdd.bind(this)}
-                                data-dismiss="modal"
-                              >
-                                <i className="fas fa-save" />
-                                Save Changes
-                              </button>
-                              <button
-                                type="button"
-                                className="btn btn-dark"
-                                onClick={() =>
-                                  this.setState({
-                                    name: "",
-                                    brand: "",
-                                    price: "",
-                                    producer: "",
-                                    imageUrl: "",
-                                    description: "",
-                                    productType: ""
-                                  })
-                                }
-                              >
-                                <i className="fas fa-eraser" />
-                                New
-                              </button>
-                            </div>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                </a>
                   <button
                     type="button"
                     className="btn btn-danger"
@@ -383,6 +310,158 @@ export default class ProductManager extends Component {
             />
           </div>
         </div>
+        <div id='add-form' className='mx-auto'>
+          <h2>Add/Edit Form</h2>
+          <p className="text">*Click New to add new</p>
+          <form action="form-control" onSubmit={this.handleSubmit}>
+            <div className="row">
+              <div className="col-lg-6">
+                <div className="form-group">
+                  <p className="font-weight-bold text-left">
+                    Name
+                                  </p>
+                  <div>
+                    <input
+                      type="text"
+                      name="name"
+                      value={this.state.name}
+                      onChange={this.handleChange.bind(this)}
+                     
+                    />
+                    <div style={{ fontSize: 12, color: "red" }}>
+                      {this.state.nameError}
+                    </div>
+                  </div>
+                </div>
+                <div className="form-group">
+                  <p className="font-weight-bold text-left">
+                    Brand
+                                  </p>
+                  <div>
+                    <input
+                      type="text"
+                      name="brand"
+                      value={this.state.brand}
+                      onChange={this.handleChange.bind(this)}
+                   
+                    />
+                    <div style={{ fontSize: 12, color: "red" }}>
+                {this.state.brandError}
+              </div>
+                  </div>
+                </div>
+                <div className="form-group">
+                  <p className="font-weight-bold text-left">
+                    Price
+                                  </p>
+                  <div>
+                    <input
+                      type="text"
+                      name="price"
+                      value={this.state.price}
+                      onChange={this.handleChange.bind(this)}
+                    />
+                    <div style={{ fontSize: 12, color: "red" }}>
+                      {this.state.priceError}
+                    </div>
+                  </div>
+                </div>
+                <div className="form-group">
+                  <p className="font-weight-bold text-left">
+                    Producer
+                                  </p>
+                  <div>
+                    <input
+                      type="text"
+                      name="producer"
+                      value={this.state.producer}
+                      onChange={this.handleChange.bind(this)}
+                    />
+                    <div style={{ fontSize: 12, color: "red" }}>
+                      {this.state.producerError}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-6">
+                <div className="form-group">
+                  <p className="font-weight-bold text-left">
+                    imageUrl
+                                  </p>
+                  <div>
+                    <input
+                      type="imageUrl"
+                      name="imageUrl"
+                      value={this.state.imageUrl}
+                      onChange={this.handleChange.bind(this)}
+                    />
+                    <div style={{ fontSize: 12, color: "red" }}>
+                      {this.state.imageUrlError}
+                    </div>
+                  </div>
+                </div>
+                <div className="form-group">
+                  <p className="font-weight-bold text-left">
+                    Product Type
+                                  </p>
+                  <div>
+                    <input
+                      type="productType"
+                      name="productType"
+                      value={this.state.productType}
+                      onChange={this.handleChange.bind(this)}
+                  
+                    />
+                    <div style={{ fontSize: 12, color: "red" }}>
+                      {this.state.productTypeError}
+                    </div>
+                  </div>
+                </div>
+                <div className="form-group">
+                  <p className="font-weight-bold text-left">
+                    Description
+                                  </p>
+                  <textarea
+                    row="5"
+                    type="text"
+                    name="description"
+                    value={this.state.description}
+                    onChange={this.handleChange.bind(this)}
+                  /><div style={{ fontSize: 12, color: "red" }}>
+                    {this.state.descriptionError}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="text-center padding">
+              <button
+                type="submit"
+                className="btn mybtn"
+              >
+                <i className="fas fa-save" />
+                Save Changes
+                              </button>
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={() =>
+                  this.setState({
+                    name: "",
+                    brand: "",
+                    price: "",
+                    producer: "",
+                    imageUrl: "",
+                    description: "",
+                    productType: ""
+                  })
+                }
+              >
+                <i className="fas fa-eraser" />
+                New
+                              </button>
+            </div>
+          </form>
+        </div>
         <UpButton />
         <Footer />
       </ProductManagerWrapper>
@@ -396,8 +475,28 @@ function searchingFor(query) {
   };
 }
 const ProductManagerWrapper = styled.div`
+.form-control-md{
+  max-width: 30rem;
+}
+.buttons{
+  margin-top: 3rem
+  margin-left: 40rem
+}
+.padding button{
+  margin-left:2rem;
+  magin-right: 2rem;
+}
+#add-form{
+  margin: 5rem 15rem 5rem 15rem !important
+}
+.mybtn{
+  background: transparent;
+  color:#ff4c3b;
+  border-color: #ff4c3b;
+}
 .add-new{
   margin-top:-3.3rem;
+  margin-right: 5rem!important;
 }
 .search-bar{
   margin-top: 1.5rem;
@@ -414,7 +513,11 @@ const ProductManagerWrapper = styled.div`
   .link {
     color: grey !important;
   }
-  .btn-dark {
+  .btn-danger{
+    padding-left: 2.1rem;
+    padding-right: 2.1rem;
+  }
+  .btn-secondary {
     padding-left: 2.5rem;
     padding-right: 2.5rem;
   }

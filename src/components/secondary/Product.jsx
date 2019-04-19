@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Image from "react-image-resizer";
 import styled from "styled-components";
-import ProductDetail from "../main/ProductDetail";
+
 
 export default class Product extends Component {
   render() {

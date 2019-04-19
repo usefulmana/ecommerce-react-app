@@ -33,7 +33,6 @@ export default class Search extends Component {
   }
 
   render() {
-    console.log(this.state.products)
     return (
       <SearchWrapper>
         <div>
