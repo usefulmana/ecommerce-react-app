@@ -25,3 +25,6 @@ Runs the app in the development mode.
 
 There might be a bug where the application crashes due to an unnamed product. I have solved the issue by applying a filter. However, this notice is a precaution. If the app crashes, simply delete any unnamed product in the database.
 
+After applying a product type filter in the all products page, some items that do not belong in the categories might linger. This issue can not be replicated on my end during my debugging at home. It appears that internet speed might be the cause of this issue. Delete any item that lingers will fix the issue.
+
+

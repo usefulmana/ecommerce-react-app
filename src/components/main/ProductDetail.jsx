@@ -22,8 +22,6 @@ export default class ProductDetail extends Component {
   }
 
   render() {
-    console.log(this.props.match.params.id)
-    console.log(this.state.product.productType)
     return (
       <ProductDetailWrapper>
         <Header />

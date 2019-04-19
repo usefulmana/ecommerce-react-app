@@ -102,7 +102,7 @@ export default class ProductManager extends Component {
     fetch(url)
       .then(res => res.json())
       .then(json => {
-        let data = json.filter(d => d._id !== "" && d.name !=='');
+        let data = json.filter(d => d._id !== "");
         this.setState({ product: data });
       });
   }

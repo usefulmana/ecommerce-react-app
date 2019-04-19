@@ -17,8 +17,8 @@ export default class ProductTypeManager extends Component {
       id: "",
       name: "",
       pageOfItems: [],
-      query: '',
-      nameError: ''
+      query: "",
+      nameError: ""
     };
     this.onChangePage = this.onChangePage.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
@@ -28,22 +28,23 @@ export default class ProductTypeManager extends Component {
     const isValid = this.validate();
     if (isValid) {
       // clear form
-      this.setState({nameError: "", name:'' });
+      this.setState({ nameError: "", name: "" });
       this.handleAdd();
       Swal.fire({
-        type: 'success',
-        title: 'Success!',
+        type: "success",
+        title: "Success!",
         showConfirmButton: false,
         timer: 2000
-      })
+      });
     }
-  }
+  };
   validate = () => {
     let nameError = "";
     // let passwordError = "";
 
     if (!this.state.name || this.state.name.length <= 4) {
-      nameError = "Name cannot be blank, and it has to be longer than 4 characters";
+      nameError =
+        "Name cannot be blank, and it has to be longer than 4 characters";
     }
     if (nameError) {
       this.setState({ nameError });
@@ -54,7 +55,10 @@ export default class ProductTypeManager extends Component {
   fetchProductType() {
     fetch(url)
       .then(res => res.json())
-      .then(json => this.setState({ productType: json }));
+      .then(json => {
+        let data = json.filter(d => d._id !== "");
+        this.setState({ productType: data });
+      });
   }
   onChangePage(pageOfItems) {
     // update state with new page of items
@@ -65,7 +69,7 @@ export default class ProductTypeManager extends Component {
   }
   handleSearchChange(e) {
     this.setState({
-      query: e.target.value,
+      query: e.target.value
     });
   }
   handleChange(e) {
@@ -144,9 +148,16 @@ export default class ProductTypeManager extends Component {
           </div>
         </div>
         <div className="row">
-          <div className="col-3 search-bar mx-auto"><input className='form-control' type='text' placeholder='Search by name' onChange={this.handleSearchChange} /></div>
-          <div className='add-new'>
-          <a href="#add-form">
+          <div className="col-3 search-bar mx-auto">
+            <input
+              className="form-control"
+              type="text"
+              placeholder="Search by name"
+              onChange={this.handleSearchChange}
+            />
+          </div>
+          <div className="add-new">
+            <a href="#add-form">
               <button
                 className="btn mybtn text-left"
                 onClick={() =>
@@ -156,11 +167,11 @@ export default class ProductTypeManager extends Component {
                 }
               >
                 <i className="fas fa-plus" /> Add New Type
-            </button>
-          </a>
+              </button>
+            </a>
           </div>
         </div>
-        <div className='table-control'>
+        <div className="table-control">
           <table className="table table-striped table-bordered table-sm">
             <thead>
               <tr>
@@ -169,35 +180,37 @@ export default class ProductTypeManager extends Component {
                 <th className="text-center">Actions</th>
               </tr>
             </thead>
-            {this.state.pageOfItems.filter(searchingFor(this.state.query)).map(p => (
-              <tr>
-                <td>{p._id}</td>
-                <td>{p.name}</td>
-                <td className="text-center">
-                <a href="#add-form">
+            {this.state.pageOfItems
+              .filter(searchingFor(this.state.query))
+              .map(p => (
+                <tr>
+                  <td>{p._id}</td>
+                  <td>{p.name}</td>
+                  <td className="text-center">
+                    <a href="#add-form">
+                      <button
+                        href="#add-form"
+                        className="btn btn-secondary"
+                        type="button"
+                        onClick={this.handleEdit.bind(this, p._id, p.name)}
+                      >
+                        {" "}
+                        <i className="fas fa-edit" />
+                        Edit
+                      </button>
+                    </a>
                     <button
-                      href='#add-form'
-                      className="btn btn-secondary"
                       type="button"
-                      onClick={this.handleEdit.bind(this, p._id, p.name)}
+                      className="btn btn-danger"
+                      onClick={this.handleDelete.bind(this, p._id)}
                     >
                       {" "}
-                      <i className="fas fa-edit" />
-                      Edit
-                  </button>
-                </a>
-                  <button
-                    type="button"
-                    className="btn btn-danger"
-                    onClick={this.handleDelete.bind(this, p._id)}
-                  >
-                    {" "}
-                    <i className="fas fa-trash" />
-                    Delete{" "}
-                  </button>
-                </td>
-              </tr>
-            ))}
+                      <i className="fas fa-trash" />
+                      Delete{" "}
+                    </button>
+                  </td>
+                </tr>
+              ))}
           </table>
           <div className="paginate">
             <Paginate
@@ -206,30 +219,45 @@ export default class ProductTypeManager extends Component {
             />
           </div>
         </div>
-        <div id='add-form' className='mx-auto'>
+        <div id="add-form" className="mx-auto">
           <h2>Add/Edit Form</h2>
           <p className="text">*Click New to add new</p>
           <form onSubmit={this.handleSubmit}>
-            <div className='form-group'>
-              <strong>  <label for="name">Name</label></strong>
-            
-              <input type="text" id="name" value={this.state.name}
-                name="name" className="form-control-lg" onChange={this.handleChange.bind(this)} />
+            <div className="form-group">
+              <strong>
+                {" "}
+                <label for="name">Name</label>
+              </strong>
+
+              <input
+                type="text"
+                id="name"
+                value={this.state.name}
+                name="name"
+                className="form-control-lg"
+                onChange={this.handleChange.bind(this)}
+              />
               <div style={{ fontSize: 12, color: "red" }}>
                 {this.state.nameError}
               </div>
             </div>
-            <div className='buttons'>
-              <button type="submit" class="btn mybtn"><i className="fas fa-save" />Save Changes</button>
-              <button type="button" className="btn btn-secondary" onClick={() =>
-                this.setState({
-                  name: ""
-                })
-              }
+            <div className="buttons">
+              <button type="submit" class="btn mybtn">
+                <i className="fas fa-save" />
+                Save Changes
+              </button>
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={() =>
+                  this.setState({
+                    name: ""
+                  })
+                }
               >
                 <i className="fas fa-eraser" />
                 New
-            </button>              
+              </button>
             </div>
           </form>
         </div>
@@ -240,7 +268,7 @@ export default class ProductTypeManager extends Component {
   }
 }
 function searchingFor(query) {
-  return function (x) {
+  return function(x) {
     return x.name.toLowerCase().includes(query.toLowerCase()) || !query;
   };
 }
